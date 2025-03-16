@@ -1,12 +1,26 @@
-const chatbox = document.getElementById("chat-box");
-const userInput = document.getElementById("chat-input");
+// Select elements
+const chatBox = document.getElementById("chat-box");
+const chatInput = document.getElementById("chat-input");
 const sendButton = document.getElementById("send-btn");
 
-/**
- * Adds a message bubble to the chatbox
- * @param {string} text - The message text
- * @param {string} sender - Either "user" or "bot"
- */
+async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    // Add User Message
+    addMessage(message, "user");
+
+    // Clear input field
+    userInput.value = "";
+
+    // Simulate bot response (Replace with actual API call)
+    setTimeout(() => {
+        const botReply = "This is a bot response"; // Replace this with API response
+        addMessage(botReply, "bot");
+    }, 1000);
+}
+
+// Function to add messages to chat
 function addMessage(text, sender) {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message");
@@ -18,10 +32,10 @@ function addMessage(text, sender) {
     }
 
     messageDiv.textContent = text;
-    chatbox.appendChild(messageDiv);
+    chatBox.appendChild(messageDiv);
 
     // Auto-scroll to the latest message
-    chatbox.scrollTop = chatbox.scrollHeight;
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 // Sends user message and fetches bot response
@@ -78,10 +92,34 @@ async function sendToApi(data) {
     return response.json();
 }
 
-// Event Listeners
+// Function to clear the chat
+function clearChat() {
+    chatBox.innerHTML = ""; // Removes all messages
+    modal.style.display = "none"; // Close modal after clearing
+}
+
+// Open modal when Clear Chat button is clicked
+clearChatButton.addEventListener("click", function () {
+    modal.style.display = "flex"; // Show modal only when button is clicked
+});
+
+// Close modal when X button is clicked
+closeModal.addEventListener("click", function () {
+    modal.style.display = "none";
+});
+
+// Confirm clear chat
+confirmClearChat.addEventListener("click", clearChat);
+
+// Close modal if user clicks outside the box
+window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+// Event Listeners for sending messages
 sendButton.addEventListener("click", sendMessage);
 userInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
+    if (event.key === "Enter") sendMessage();
 });
