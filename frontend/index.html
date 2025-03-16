@@ -11,10 +11,14 @@
     <h1 class="title">MediBot</h1>
 
     <div class="container">
-        <!-- Sidebar for User Info (Left-Aligned) -->
+        <!-- Sidebar for User Info -->
         <aside class="sidebar">
             <h2>User Info</h2>
-            <label>Age: <input type="number" id="age" placeholder="Enter age"></label>
+
+            <label>Age: 
+                <input type="number" id="age" placeholder="Enter age">
+            </label>
+
             <label>Gender:
                 <select id="gender">
                     <option value="Not specified">Not specified</option>
@@ -23,8 +27,24 @@
                     <option value="Other">Other</option>
                 </select>
             </label>
-            <label>Weight (kg): <input type="number" id="weight" placeholder="Enter weight"></label>
-            <label>Status: <input type="text" id="status" placeholder="e.g., sick, normal"></label>
+
+            <label>Weight (kg): 
+                <input type="number" id="weight" placeholder="Enter weight">
+            </label>
+
+            <label>Cups of Water Drank: 
+                <input type="number" id="water-intake" placeholder="Enter cups">
+            </label>
+            
+            <label>Recently Eaten Food: 
+                <input type="text" id="recent-food" placeholder="e.g., Sandwich, Salad">
+            </label>
+
+            <label>Status: 
+                <input type="text" id="status" placeholder="e.g., sick, normal">
+            </label>
+
+            <!-- Clear Chat Button -->
             <button id="clear-history">Clear Chat</button>
         </aside>
 
@@ -39,7 +59,17 @@
             </div>
         </main>
     </div>
-    
+
+    <!-- Warning Popup for Clear Chat -->
+    <div id="clear-chat-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Warning!</h2>
+            <p>Action cannot be undone. Are you sure you want to clear the chat? Click anywhere outside the box to exit this.</p>
+            <button id="confirm-clear-chat">Continue</button>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
