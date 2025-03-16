@@ -1,106 +1,244 @@
 /* General Page Styling */
-body {
-    background-color: #0a0a0a;
-    color: #00fff7;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #1a001a; /* Deep Purple */
+    color: #ffffff; /* White text */
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+}
+
+/* Title at the Top */
+.title {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 10px;
+    border-bottom: 3px solid #d4aaff; /* Light Purple */
+    width: 100%;
+    padding-bottom: 5px;
+    color: #d4aaff;
 }
 
 /* Main Container */
 .container {
-    width: 90%;
-    max-width: 1200px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Title */
-.title {
-    font-size: 2rem;
-    border-bottom: 2px solid #00fff7;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-
-/* Chat & Info Container */
-.content {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
+    height: calc(100vh - 60px); /* Adjust height minus title */
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
 }
 
-/* Chat Container */
-.chat-container {
-    width: 65%;
-    background: #111;
-    border: 2px solid #00fff7;
+/* Sidebar (Flush to the Left) */
+.sidebar {
+    flex: 0 0 20%;
+    background: #290033; /* Dark Purple */
+    border: 2px solid #d4aaff; /* Light Purple */
     border-radius: 10px;
-    padding: 8px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
+    padding: 15px;
+    height: 100%;
+    margin: 0;
+    align-self: stretch;
 }
 
-.chat-box {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 5px;
-}
-
-.chat-message {
-    background: #00fff7;
-    color: black;
-    padding: 6px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    max-width: 80%;
-    font-size: 0.9rem;
-}
-
-#chat-input {
-    width: calc(100% - 16px);
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-    background: #222;
-    color: #00fff7;
-    outline: none;
-    font-size: 0.9rem;
-}
-
-/* Critical Info Box */
-.info-box {
-    background: #111;
-    border: 2px solid #00fff7;
-    border-radius: 10px;
-    padding: 10px;
-    width: 30%;
-    font-size: 0.9rem;
-}
-
-.info-box h2 {
-    border-bottom: 1px solid #00fff7;
-    padding-bottom: 3px;
-    margin-bottom: 5px;
+/* Sidebar Heading */
+.sidebar h2 {
+    border-bottom: 2px solid #d4aaff;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 1.2rem;
+    color: #d4aaff;
 }
 
-button {
-    background: #00fff7;
-    color: black;
+/* Sidebar Inputs */
+.sidebar label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.sidebar input, .sidebar select {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    border: 1px solid #d4aaff;
+    border-radius: 5px;
+    background: #3b003b; /* Darker Purple */
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+/* Sidebar Button */
+.sidebar button {
+    background: #d4aaff;
+    color: #290033; /* Dark Purple */
     border: none;
-    padding: 8px;
+    padding: 10px;
     width: 100%;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    margin-top: 15px;
+    font-weight: bold;
 }
 
-button:hover {
-    background: #00d4d1;
+.sidebar button:hover {
+    background: #b380ff; /* Slightly Darker Purple */
+}
+
+/* Chat Section */
+.chat-container {
+    flex-grow: 1;
+    background: #290033;
+    border: 2px solid #d4aaff;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Chat Box */
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    max-height: 100%;
+    border-radius: 5px;
+    background: #1a001a;
+    border: 1px solid #d4aaff;
+}
+
+/* Chat Input */
+.input-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+#chat-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #d4aaff;
+    border-radius: 5px;
+    background: #3b003b;
+    color: #ffffff;
+    outline: none;
+    font-size: 1rem;
+}
+
+#send-btn {
+    background: #d4aaff;
+    color: #290033;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+#send-btn:hover {
+    background: #b380ff;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    .chat-container {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+/* Chat Box */
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    max-height: 100%;
+    border-radius: 5px;
+    background: #1a001a;
+    border: 1px solid #d4aaff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Message Bubbles */
+.message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* User Message (Align Right) */
+.user-message {
+    align-self: flex-end;
+    background: #d4aaff;
+    color: #290033;
+    text-align: left;
+    border-bottom-right-radius: 5px;
+}
+
+/* Bot Message (Align Left) */
+.bot-message {
+    align-self: flex-start;
+    background: #3b003b;
+    color: #ffffff;
+    text-align: left;
+    border-bottom-left-radius: 5px;
+}
+
+/* Chat Input */
+.input-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+#chat-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #d4aaff;
+    border-radius: 5px;
+    background: #3b003b;
+    color: #ffffff;
+    outline: none;
+    font-size: 1rem;
+}
+
+#send-btn {
+    background: #d4aaff;
+    color: #290033;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+#send-btn:hover {
+    background: #b380ff;
 }
