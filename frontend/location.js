@@ -1,51 +1,47 @@
-// This function fetches nearby places from the backend server
-function fetchNearbyPlaces(latitude, longitude) {
-    // Construct the URL to your FastAPI backend
-    const url = `http://127.0.0.1:8000/find_places?latitude=${latitude}&longitude=${longitude}`;
-
-    // Fetch the data from the backend
-    fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.results) {
-            displayResults(data.results);
-        } else {
-            console.error('Failed to load places:', data.status);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-// This function displays the results in the HTML page
-function displayResults(places) {
-    const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = ''; // Clear previous results
-    places.forEach(place => {
-        const name = place.name;
-        const rating = place.rating || 'Rating not available';
-        resultsContainer.innerHTML += `<p>${name} - Rating: ${rating}</p>`;
-    });
-}
-
-// This function gets the user's current location and calls fetchNearbyPlaces
-function getLocationAndPlaces() {
+function initNearbySearch() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            fetchNearbyPlaces(position.coords.latitude, position.coords.longitude);
-        }, error => {
-            console.error('Geolocation error:', error);
-            alert('Error getting location: ' + error.message);
+        navigator.geolocation.getCurrentPosition((position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log("User's position:", latitude, longitude);
+
+            // Request the server to fetch nearby hospitals
+            fetch(`/find_places?latitude=${latitude}&longitude=${longitude}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Data received from server:", data);
+                    if (data.results) {
+                        displayResults(data.results);
+                    } else {
+                        document.getElementById('results').innerHTML = "No results found.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                    document.getElementById('results').innerHTML = "Error fetching places.";
+                });
+        }, (error) => {
+            console.error("Geolocation error:", error);
+            document.getElementById('results').innerHTML = "Unable to retrieve your location.";
         });
     } else {
-        console.error('Geolocation is not supported by this browser.');
-        alert('Geolocation is not supported by your browser.');
+        document.getElementById('results').innerHTML = "Geolocation is not supported by your browser.";
     }
 }
 
-// Initialize the process when the script loads
-getLocationAndPlaces();
+function displayResults(results) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = "";
+    results.forEach(place => {
+        const name = place.name;
+        const rating = place.rating ? place.rating : "No rating";
+        resultsDiv.innerHTML += `<p>${name} - Rating: ${rating}</p>`;
+    });
+}
+
+window.onload = initNearbySearch;
