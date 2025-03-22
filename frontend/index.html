@@ -1,79 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediBot</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediBot</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Global styles */
+    html, body {
+      height: auto !important;
+      overflow: auto !important;
+      display: block !important;
+      background-color: #f5f5f5;
+    }
+    
+    /* Header container: horizontal and no wrapping */
+    .header-container {
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10px;
+    }
+    
+    .title {
+      margin: 0;
+      font-size: 2em;
+    }
+    
+    .location-btn {
+      white-space: nowrap;
+      padding: 10px 30px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: -10px; /* Moves the button up by 10 pixels */
+    }
+    
+    /* Style for the attach image button */
+    .attach-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+      text-align: center;
+    }
+    .attach-btn:hover {
+      background-color: #1527f8;
+    }
+    
+    /* Footer styling */
+    footer {
+      background-color: #e0f7fa;
+      color: #222;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin: 10px;
+      text-align: center;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 10px;
+      color: #007BFF;
+    }
+    
+    .footer-section a {
+      text-decoration: none;
+      color: #000;
+    }
+    
+    .footer-section a:hover {
+      text-decoration: underline;
+    }
+    
+    .footer-section p {
+      margin: 5px 0;
+    }
+    
+    /* Container, sidebar, and chat section styling */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+    
+    .sidebar {
+      flex: 1;
+      min-width: 250px;
+      margin-right: 20px;
+    }
+    
+    .chat-container {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      height: 94vh;
+      border: 1px solid #ccc;
+    }
+    
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    .input-container {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+    
+    .input-container input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      margin-right: 10px;
+    }
+    
+    .input-container button {
+      padding: 8px 16px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Title at the top -->
+  <!-- Header container with horizontal layout -->
+  <header class="header-container">
     <h1 class="title">MediBot</h1>
+    <a href="location.html" class="location-btn">Hospitals and Doctors nearby</a>
+  </header>
 
-    <div class="container">
-        <!-- Sidebar for User Info -->
-        <aside class="sidebar">
-            <h2>User Info</h2>
+  <div class="container">
+    <!-- Sidebar for User Info -->
+    <aside class="sidebar">
+      <h2>User Info</h2>
+      <label>Age: 
+        <input type="number" id="age" placeholder="Enter age">
+      </label>
+      <label>Gender:
+        <select id="gender">
+          <option value="Not specified">Not specified</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+      <label>Weight (kg): 
+        <input type="number" id="weight" placeholder="Enter weight">
+      </label>
+      <label>Cups of Water Drank: 
+        <input type="number" id="water-intake" placeholder="Enter cups">
+      </label>
+      <label>Recently Eaten Food: 
+        <input type="text" id="recent-food" placeholder="e.g., Sandwich, Salad">
+      </label>
+      <label>Status: 
+        <input type="text" id="status" placeholder="e.g., sick, normal">
+      </label>
+      <label>Any Other Important Medical Information:
+        <input type="text" id="symptoms" placeholder="e.g., Diabetes, Hypertension">
+      </label>
+      <!-- Clear Chat Button -->
+      <button id="clear-history">Clear Chat</button>
+    </aside>
 
-            <label>Age: 
-                <input type="number" id="age" placeholder="Enter age">
-            </label>
+    <!-- Chat Section -->
+    <main class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <!-- Messages will appear here -->
+      </div>
+      <!-- Single Message Bar with text and image input -->
+      <div class="input-container">
+        <input type="text" id="chat-input" placeholder="Message MediBot...">
+        <!-- Hidden file input -->
+        <input type="file" id="image-input" accept="image/*" style="display: none;">
+        <!-- Attach image button -->
+        <label for="image-input" class="attach-btn">Attach image here</label>
+        <button id="send-btn">Send</button>
+      </div>
+    </main>
+  </div>
 
-            <label>Gender:
-                <select id="gender">
-                    <option value="Not specified">Not specified</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </label>
-
-            <label>Weight (kg): 
-                <input type="number" id="weight" placeholder="Enter weight">
-            </label>
-
-            <label>Cups of Water Drank: 
-                <input type="number" id="water-intake" placeholder="Enter cups">
-            </label>
-            
-            <label>Recently Eaten Food: 
-                <input type="text" id="recent-food" placeholder="e.g., Sandwich, Salad">
-            </label>
-
-            <label>Status: 
-                <input type="text" id="status" placeholder="e.g., sick, normal">
-            </label>
-
-            <label>Any Other Important Medical Information:
-                <input type="text" id="symptoms" placeholder="e.g., Diabetes, Hypertension">
-            </label>
-
-            <!-- Clear Chat Button -->
-            <button id="clear-history">Clear Chat</button>
-        </aside>
-
-        <!-- Chat Section -->
-        <main class="chat-container">
-            <div class="chat-box" id="chat-box">
-                <!-- Messages will appear here -->
-            </div>
-            <div class="input-container">
-                <input type="text" id="chat-input" placeholder="Message MediBot...">
-                <button id="send-btn">Send</button>
-            </div>
-        </main>
+  <!-- Warning Popup for Clear Chat -->
+  <div id="clear-chat-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Warning!</h2>
+      <p>Action cannot be undone. Are you sure you want to clear the chat? Click anywhere outside the box to exit this.</p>
+      <button id="confirm-clear-chat">Continue</button>
     </div>
+  </div>
 
-    <!-- Warning Popup for Clear Chat -->
-    <div id="clear-chat-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Warning!</h2>
-            <p>Action cannot be undone. Are you sure you want to clear the chat? Click anywhere outside the box to exit this.</p>
-            <button id="confirm-clear-chat">Continue</button>
-        </div>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section links">
+        <h3>Links</h3>
+        <a href="about_us.html">Developers</a><br>
+        <a href="https://github.com/ShriteMamidala/MediBot" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-section contact">
+        <h3>Contact</h3>
+        <p>shritejmamidala@gmail.com</p>
+        <p>vandan.ayyalapu@gmail.com</p>
+      </div>
+      <div class="footer-section instructions">
+        <h3>Instructions</h3>
+        <a href="instructions.html">View Instructions</a>
+      </div>
     </div>
-
-    <script src="app.js"></script>
+  </footer>
+  <script src="app.js"></script>
 </body>
 </html>

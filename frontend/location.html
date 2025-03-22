@@ -1,12 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Nearest Medical Facilities</title>
+  <meta charset="UTF-8">
+  <title>Nearest Medical Facilities</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    /* Override global layout for this page */
+    html, body {
+      display: block;          
+      height: auto;            
+      min-height: 100vh;       
+      overflow: auto;          
+      background-color: #e0f7fa; /* Light blue background */
+      text-align: left;        
+    }
+    
+    /* Back button style adjusted to match the theme */
+    .back-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px 20px;
+      background-color: #0077b6;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    /* Left-align the title and results content */
+    .title, #results {
+      text-align: left;
+      width: 90%;
+      margin: 20px;
+    }
+    
+    /* Force a two-column layout splitting horizontally 50/50 */
+    .results-container {
+      display: flex;
+      width: 100%;
+    }
+    
+    .hospitals, .doctors {
+      width: 50%;
+      box-sizing: border-box;
+    }
+    
+    .hospitals {
+      border-right: 2px solid #0077b6;
+      padding-right: 10px;
+    }
+    
+    .doctors {
+      padding-left: 10px;
+    }
+    
+    /* Style for each place entry with extra spacing between text */
+    .place {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #0077b6;
+      border-radius: 5px;
+      background-color: #ffffff;
+      line-height: 1.5;
+    }
+    
+    /* Ensure paragraphs inside .place have spacing */
+    .place p {
+      margin: 0.5em 0;
+    }
+  </style>
 </head>
 <body>
-    <h1>Nearest Medical Facilities</h1>
-    <div id="results"></div>
-    <script src="location.js"></script>
+  <!-- Back button in the top right -->
+  <a href="index.html" class="back-btn">Back to MediBot</a>
+  
+  <h1 class="title">Nearest Medical Facilities</h1>
+  <div id="results"></div>
+  <script src="location.js"></script>
 </body>
 </html>

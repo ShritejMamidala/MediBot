@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - MediBot</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa; /* Light blue background */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    /* Back Button */
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Container for the boxes */
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+      width: 90%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    /* Box styling */
+    .box {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+    }
+    
+    .box h2 {
+      margin-top: 0;
+      font-size: 1.75rem;
+      color: #007BFF;
+    }
+    
+    .box p {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">Back</a>
+  <div class="container">
+    <!-- Left Box -->
+    <div class="box">
+      <h2>Vandan Ayyalapu</h2>
+      <p>Developed all frontend components and designed UI from scratch</p>
+      <p>Attends Freedom High School</p>
+      <p>Sophomore</p>
+    </div>
+    
+    <!-- Right Box -->
+    <div class="box">
+      <h2>Shritej Mamidala</h2>
+      <p>Developed backend which included chatbot features, model training, and location gathering</p>
+      <p>Attends Freedom High School</p>
+      <p>Sophomore</p>
+    </div>
+  </div>
+</body>
+</html>

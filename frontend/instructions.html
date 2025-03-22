@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructions - MediBot</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa; /* Light blue background */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    /* Back Button */
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Centered Box */
+    .instructions-box {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    .instructions-box h1 {
+      margin-top: 0;
+      font-size: 2rem;
+      color: #007BFF;
+      letter-spacing: 1px;
+    }
+    
+    .instructions-box p {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .instructions-box {
+        padding: 30px 20px;
+      }
+      
+      .instructions-box h1 {
+        font-size: 1.75rem;
+      }
+      
+      .instructions-box p {
+        font-size: 1rem;
+      }
+      
+      .back-btn {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">Back</a>
+  <div class="instructions-box">
+    <h1>Welcome to MediBot!</h1>
+    <p><strong>MediBot is your one-stop AI Medical Chatbot!</strong></p>
+    <p>Trained on over 100GB of medical data, MediBot leverages the knowledge of licensed professionals – all available completely free.</p>
+    <p>MediBot uses the important information provided on the left side of the screen to deliver personalized responses.</p>
+    <p>MediBot accepts both text and image queries.</p>
+    <p>By clicking the button in the top right, MediBot will scan your area and locate the nearest doctors and hospitals in case of an emergency.</p>
+  </div>
+</body>
+</html>

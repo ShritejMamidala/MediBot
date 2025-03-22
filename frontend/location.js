@@ -5,7 +5,6 @@ function initNearbySearch() {
             const longitude = position.coords.longitude;
             console.log("User's position:", latitude, longitude);
 
-            // Request the server to fetch nearby hospitals
             fetch(`/find_places?latitude=${latitude}&longitude=${longitude}`)
                 .then(response => {
                     if (!response.ok) {
@@ -15,11 +14,7 @@ function initNearbySearch() {
                 })
                 .then(data => {
                     console.log("Data received from server:", data);
-                    if (data.results) {
-                        displayResults(data.results);
-                    } else {
-                        document.getElementById('results').innerHTML = "No results found.";
-                    }
+                    displayResults(data);
                 })
                 .catch(error => {
                     console.error("Fetch error:", error);
@@ -34,14 +29,72 @@ function initNearbySearch() {
     }
 }
 
-function displayResults(results) {
+function displayResults(data) {
     const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = "";
-    results.forEach(place => {
-        const name = place.name;
-        const rating = place.rating ? place.rating : "No rating";
-        resultsDiv.innerHTML += `<p>${name} - Rating: ${rating}</p>`;
-    });
+    resultsDiv.innerHTML = ''; // Clear previous content
+
+    // Create container for two columns
+    const container = document.createElement('div');
+    container.className = 'results-container';
+
+    // Create hospitals column
+    const hospitalsDiv = document.createElement('div');
+    hospitalsDiv.className = 'hospitals';
+    const hospitalsHeading = document.createElement('h2');
+    hospitalsHeading.textContent = 'Hospitals';
+    hospitalsDiv.appendChild(hospitalsHeading);
+
+    if (data.hospitals && data.hospitals.length > 0) {
+        data.hospitals.forEach(place => {
+            const placeDiv = document.createElement('div');
+            placeDiv.className = 'place';
+            placeDiv.innerHTML = `
+                <strong>${place.name}</strong><br>
+                <strong>Distance (km):</strong> ${place.distance_km}<br>
+                <strong>Rating:</strong> ${place.rating}<br>
+                <strong>Website:</strong> <a href="${place.website}" target="_blank">${place.website}</a><br>
+                <strong>Phone:</strong> ${place.phone}<br>
+                <img src="${place.photo}" alt="Photo of ${place.name}" style="max-width:200px;">
+            `;
+            hospitalsDiv.appendChild(placeDiv);
+        });
+    } else {
+        const noHospitals = document.createElement('p');
+        noHospitals.textContent = 'No hospitals found.';
+        hospitalsDiv.appendChild(noHospitals);
+    }
+
+    // Create doctors column
+    const doctorsDiv = document.createElement('div');
+    doctorsDiv.className = 'doctors';
+    const doctorsHeading = document.createElement('h2');
+    doctorsHeading.textContent = 'Doctors';
+    doctorsDiv.appendChild(doctorsHeading);
+
+    if (data.doctors && data.doctors.length > 0) {
+        data.doctors.forEach(place => {
+            const placeDiv = document.createElement('div');
+            placeDiv.className = 'place';
+            placeDiv.innerHTML = `
+                <strong>${place.name}</strong><br>
+                <strong>Distance (km):</strong> ${place.distance_km}<br>
+                <strong>Rating:</strong> ${place.rating}<br>
+                <strong>Website:</strong> <a href="${place.website}" target="_blank">${place.website}</a><br>
+                <strong>Phone:</strong> ${place.phone}<br>
+                <img src="${place.photo}" alt="Photo of ${place.name}" style="max-width:200px;">
+            `;
+            doctorsDiv.appendChild(placeDiv);
+        });
+    } else {
+        const noDoctors = document.createElement('p');
+        noDoctors.textContent = 'No doctors found.';
+        doctorsDiv.appendChild(noDoctors);
+    }
+
+    // Append both columns to the container
+    container.appendChild(hospitalsDiv);
+    container.appendChild(doctorsDiv);
+    resultsDiv.appendChild(container);
 }
 
 window.onload = initNearbySearch;

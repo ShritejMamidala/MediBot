@@ -2,6 +2,7 @@
 const chatBox = document.getElementById("chat-box");
 const chatInput = document.getElementById("chat-input");
 const sendButton = document.getElementById("send-btn");
+const imageInput = document.getElementById("image-input"); // New file input element
 const clearChatButton = document.getElementById("clear-history");
 const modal = document.getElementById("clear-chat-modal");
 const closeModal = document.querySelector(".close-modal");
@@ -10,10 +11,17 @@ const confirmClearChat = document.getElementById("confirm-clear-chat");
 // Function to send messages and handle bot responses
 async function sendMessage() {
     const message = chatInput.value.trim();
-    if (!message) return; // Don't send empty messages
+    const imageFile = imageInput.files[0];
 
-    // Add user message to chat
-    addMessage(message, "user");
+    // Do not send if there is no message and no image
+    if (!message && !imageFile) return;
+
+    // Add user message to chat (if there's text)
+    if (message) {
+        addMessage(message, "user");
+    } else {
+        addMessage("[Image attached]", "user");
+    }
 
     // Collect sidebar information
     const sidebarInfo = {
@@ -26,37 +34,39 @@ async function sendMessage() {
         symptoms: document.getElementById("symptoms").value
     };
 
-    // Collect the full chat log
-    const chatLog = Array.from(document.querySelectorAll(".message")).map(m => ({
-        text: m.textContent,
-        sender: m.classList.contains("user-message") ? "user" : "bot"
-    }));
+    // Collect the full chat log (only text content)
+    const chatLog = Array.from(document.querySelectorAll(".message")).map(m => m.textContent);
 
-    // Prepare the data to be sent to the backend
-    const requestData = {
-        chat_log: chatLog.map(entry => entry.text),
-        user_info: sidebarInfo,
-        question: message
-    };
-
-    // Send data to backend and receive response
-    const response = await fetch('/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    });
-
-    if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+    // Create a FormData object to handle text and file upload
+    const formData = new FormData();
+    formData.append("question", message);
+    formData.append("user_info", JSON.stringify(sidebarInfo));
+    formData.append("chat_log", JSON.stringify(chatLog));
+    if (imageFile) {
+        formData.append("image", imageFile);
     }
-    
-    const data = await response.json();
-    addMessage(data.response, "bot"); // Assume 'response' contains the reply text
 
-    // Clear input field
+    // Send data to backend via a POST request
+    try {
+        const response = await fetch('/chat', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        addMessage(data.response, "bot"); // Display bot's response
+    } catch (error) {
+        console.error("Error sending message:", error);
+        addMessage("Sorry, something went wrong.", "bot");
+    }
+
+    // Clear input fields
     chatInput.value = "";
+    imageInput.value = "";
 }
 
 // Function to add messages to chat
@@ -92,7 +102,7 @@ chatInput.addEventListener("keypress", function(event) {
 });
 
 clearChatButton.addEventListener("click", function () {
-    modal.style.display = "flex"; // Show modal only when button is clicked
+    modal.style.display = "flex"; // Show modal when button is clicked
 });
 
 closeModal.addEventListener("click", function () {
