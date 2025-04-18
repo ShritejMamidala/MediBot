@@ -1,14 +1,42 @@
-# MediBot
+# 🩺 MediBot – Your AI-Powered Medical Assistant
 
-Live at https://medibot-l6qv.onrender.com/frontend/index.html
+🔗 **Live Demo**: [Try MediBot here](https://medibot-l6qv.onrender.com/frontend/index.html)
 
+---
 
-MediBot is your one-stop AI Medical Chatbot!
+## 📽️ Demo Video
 
-Trained on over 100GB of medical data, MediBot leverages the knowledge of licensed professionals – all available completely free.
+[![Watch the video](https://img.youtube.com/vi/XJBfI-VvGWA/maxresdefault.jpg)](https://youtu.be/XJBfI-VvGWA)
 
-MediBot uses the important information provided on the left side of the screen to deliver personalized responses.
+---
 
-MediBot accepts both text and image queries.
+##  What is MediBot?
 
-By clicking the button in the top right, MediBot will scan your area and locate the nearest doctors and hospitals in case of an emergency.
+**MediBot** is an AI-powered medical chatbot designed to provide quick, personalized responses to general health questions. Built on over **100GB of professional medical data**, MediBot brings accessible healthcare guidance to your fingertips — completely free.
+
+---
+
+##  Key Features
+
+-  **AI Chat**: Ask health-related questions and receive medically-informed responses.
+-  **Image Input**: Upload images (e.g., rashes, wounds) for preliminary analysis.
+-  **Emergency Locator**: Use geolocation to find the **nearest doctors and hospitals** instantly.
+-  **Context-Aware Responses**: The chatbot uses structured inputs from the left panel to tailor responses.
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: FastAPI
+- **AI**: LLMs trained on medical literature and clinical data (100GB+ dataset)
+- **Image Analysis**: Integrated vision model for interpreting basic medical images
+- **Location Services**: Geolocation API for emergency resource mapping
+
+---
+
+## 📝 Notes
+
+>  MediBot is an educational and informational tool. It is **not a substitute for professional medical advice, diagnosis, or treatment**. Always consult a qualified healthcare provider with any questions you may have regarding a medical condition.
+
+---
