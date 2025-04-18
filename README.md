@@ -29,7 +29,7 @@
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: FastAPI
-- **AI**: LLMs trained on medical literature and clinical data (100GB+ dataset)
+- **AI**: Custom Trained LLMs built on medical literature and clinical data (100GB+ dataset)
 - **Image Analysis**: Integrated vision model for interpreting basic medical images
 - **Location Services**: Geolocation API for emergency resource mapping
 
